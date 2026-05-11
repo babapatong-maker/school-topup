@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- saved from url=(0043)file:///C:/Users/tt/Downloads/index_41.html -->
+<!-- saved from url=(0043)file:///C:/Users/tt/Downloads/index_42.html -->
 <html lang="th"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -84,7 +84,7 @@
   <p class="subtitle">สแกน QR โอนเงิน แล้วกรอกข้อมูลด้านล่าง</p>
 
   <div class="qr-box">
-    <img src="qr-promptpay.jpg" alt="QR PromptPay">
+    <img src="./index_files/qr-promptpay.jpg" alt="QR PromptPay" style="max-width:220px;width:100%">
     <p>📱 พร้อมเพย์ PromptPay<br>ในนาม: <strong>โรงเรียนนิมิตศึกษา เพื่อกิจกรรม</strong><br>
     <small style="color:#aaa">เลขอ้างอิง: KPS004KB000002297827</small></p>
   </div>
@@ -93,13 +93,8 @@
     <label>ชื่อ-นามสกุลนักเรียน *</label>
     <input type="text" id="studentName" required="" placeholder="เช่น ด.ช.สมชาย ใจดี">
 
-    <div class="row">
-      <div>
-        <label>ชั้น *</label>
-        <input type="text" id="studentClass" required="" placeholder="ป.3/2">
-      </div>
-      
-    </div>
+    <label>ชั้น *</label>
+    <input type="text" id="studentClass" required="" placeholder="เช่น ป.3/2">
 
     <label>จำนวนเงิน (บาท) *</label>
     <input type="number" id="amount" required="" min="1" step="1" placeholder="500" inputmode="numeric">
@@ -165,7 +160,7 @@
     const payload = {
       studentName:   document.getElementById('studentName').value.trim(),
       studentClass:  document.getElementById('studentClass').value.trim(),
-      studentNumber: document.getElementById('studentNumber').value.trim(),
+      studentNumber: '-',
       amount:        document.getElementById('amount').value,
       note:          document.getElementById('note').value.trim(),
       slipBase64, slipMimeType, slipExt

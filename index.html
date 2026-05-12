@@ -1,131 +1,244 @@
 <!DOCTYPE html>
-<!-- saved from url=(0043)file:///C:/Users/tt/Downloads/index_42.html -->
+<!-- saved from url=(0043)file:///C:/Users/tt/Downloads/index_45.html -->
 <html lang="th"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>เติมเงินบัตรนักเรียน</title>
+<title>โรงเรียนนิมิตศึกษา</title>
+<link href="./index_files/css2" rel="stylesheet">
 <style>
+  :root {
+    --navy: #1a2744;
+    --blue: #2352a0;
+    --blue-light: #3a6bc4;
+    --gray: #6b7280;
+    --gray-light: #f0f2f5;
+    --gray-mid: #e2e6ed;
+    --white: #ffffff;
+    --accent: #c9a84c;
+    --text: #1e2633;
+    --text-soft: #5a6478;
+  }
   * { box-sizing: border-box; margin: 0; padding: 0; }
-  body {
-    font-family: -apple-system, "Segoe UI", "Sarabun", sans-serif;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    min-height: 100vh;
-    padding: 16px;
-    color: #333;
-  }
-  .container {
-    max-width: 480px;
-    margin: 0 auto;
-    background: white;
-    border-radius: 16px;
-    padding: 24px;
-    box-shadow: 0 10px 40px rgba(0,0,0,.15);
-  }
-  h1 { font-size: 22px; text-align: center; margin-bottom: 8px; color: #4a3f8a; }
-  .subtitle { text-align: center; color: #888; font-size: 14px; margin-bottom: 20px; }
-  .qr-box {
-    background: #f8f9fc;
-    border-radius: 12px;
-    padding: 16px;
-    text-align: center;
-    margin-bottom: 20px;
-    border: 2px dashed #c5c5e0;
-  }
-  .qr-box img { max-width: 220px; width: 100%; }
-  .qr-box p { font-size: 13px; color: #666; margin-top: 8px; }
-  label { display: block; font-size: 14px; margin: 12px 0 6px; font-weight: 600; }
-  input, textarea {
-    width: 100%;
-    padding: 12px;
-    border: 1.5px solid #ddd;
-    border-radius: 8px;
-    font-size: 16px;
-    font-family: inherit;
-  }
-  input:focus, textarea:focus { outline: none; border-color: #667eea; }
-  .row { display: flex; gap: 10px; }
-  .row > div { flex: 1; }
-  .file-box {
-    border: 2px dashed #c5c5e0;
-    border-radius: 8px;
-    padding: 20px;
-    text-align: center;
-    cursor: pointer;
-    background: #fafbfd;
-  }
-  .file-box.has-file { border-style: solid; border-color: #4caf50; background: #f1f8f1; }
-  #slipPreview { max-width: 100%; max-height: 200px; margin-top: 10px; border-radius: 6px; }
-  button {
-    width: 100%;
-    padding: 14px;
-    background: linear-gradient(135deg, #667eea, #764ba2);
-    color: white;
-    border: none;
-    border-radius: 10px;
-    font-size: 16px;
-    font-weight: 600;
-    margin-top: 20px;
-    cursor: pointer;
-  }
-  button:disabled { opacity: .6; cursor: wait; }
-  .toast {
-    position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%);
-    padding: 14px 24px; border-radius: 30px; color: white; font-weight: 500;
-    box-shadow: 0 4px 20px rgba(0,0,0,.2); display: none; z-index: 99;
-    white-space: nowrap;
-  }
-  .toast.success { background: #4caf50; display: block; }
-  .toast.error { background: #f44336; display: block; }
+  body { font-family: 'Sarabun', sans-serif; background: var(--gray-light); color: var(--text); min-height: 100vh; }
+
+  header { background: var(--navy); position: sticky; top: 0; z-index: 100; box-shadow: 0 2px 12px rgba(0,0,0,0.25); }
+  .header-inner { max-width: 900px; margin: 0 auto; padding: 14px 20px; display: flex; align-items: center; gap: 14px; }
+  .school-logo { width: 48px; height: 48px; border-radius: 50%; overflow: hidden; flex-shrink: 0; background: white; }
+  .school-logo img { width: 100%; height: 100%; object-fit: cover; }
+  .school-info h1 { font-family: 'Prompt', sans-serif; font-size: 16px; font-weight: 600; color: white; line-height: 1.2; }
+  .school-info p { font-size: 12px; color: rgba(255,255,255,0.55); margin-top: 2px; }
+
+  nav { background: var(--blue); overflow-x: auto; scrollbar-width: none; }
+  nav::-webkit-scrollbar { display: none; }
+  .nav-inner { max-width: 900px; margin: 0 auto; display: flex; padding: 0 12px; }
+  .nav-btn { padding: 12px 18px; font-family: 'Sarabun', sans-serif; font-size: 14px; font-weight: 600; color: rgba(255,255,255,0.7); background: none; border: none; cursor: pointer; white-space: nowrap; border-bottom: 3px solid transparent; transition: all 0.2s; }
+  .nav-btn:hover { color: white; }
+  .nav-btn.active { color: white; border-bottom-color: var(--accent); }
+
+  main { max-width: 900px; margin: 0 auto; padding: 24px 16px; }
+  .page { display: none; }
+  .page.active { display: block; }
+
+  .welcome-banner { background: linear-gradient(135deg, var(--navy) 0%, var(--blue) 100%); border-radius: 16px; padding: 28px 24px; color: white; margin-bottom: 20px; position: relative; overflow: hidden; }
+  .welcome-banner::before { content: '🏫'; position: absolute; right: 20px; top: 50%; transform: translateY(-50%); font-size: 64px; opacity: 0.15; }
+  .welcome-banner h2 { font-family: 'Prompt', sans-serif; font-size: 20px; font-weight: 700; margin-bottom: 6px; }
+  .welcome-banner p { font-size: 14px; opacity: 0.8; }
+
+  .menu-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; }
+  .menu-card { background: white; border-radius: 14px; padding: 20px 16px; text-align: center; cursor: pointer; border: 2px solid transparent; transition: all 0.2s; box-shadow: 0 2px 8px rgba(0,0,0,0.06); }
+  .menu-card:hover { border-color: var(--blue-light); transform: translateY(-2px); box-shadow: 0 6px 20px rgba(35,82,160,0.15); }
+  .menu-card .icon { font-size: 36px; margin-bottom: 10px; }
+  .menu-card h3 { font-family: 'Prompt', sans-serif; font-size: 14px; font-weight: 600; color: var(--navy); margin-bottom: 4px; }
+  .menu-card p { font-size: 12px; color: var(--text-soft); }
+  .menu-card.highlight { background: linear-gradient(135deg, var(--navy), var(--blue)); }
+  .menu-card.highlight h3 { color: white; }
+  .menu-card.highlight p { color: rgba(255,255,255,0.7); }
+  .menu-card.soon { opacity: 0.5; cursor: default; }
+  .menu-card.soon:hover { transform: none; border-color: transparent; box-shadow: 0 2px 8px rgba(0,0,0,0.06); }
+  .badge-soon { display: inline-block; background: var(--gray-mid); color: var(--gray); font-size: 10px; padding: 2px 8px; border-radius: 20px; margin-top: 4px; }
+
+  .page-title { display: flex; align-items: center; gap: 10px; margin-bottom: 20px; }
+  .back-btn { background: white; border: none; border-radius: 8px; padding: 8px 12px; cursor: pointer; font-size: 16px; box-shadow: 0 2px 6px rgba(0,0,0,0.08); }
+  .page-title h2 { font-family: 'Prompt', sans-serif; font-size: 18px; font-weight: 600; color: var(--navy); }
+
+  .card { background: white; border-radius: 14px; padding: 20px; margin-bottom: 16px; box-shadow: 0 2px 8px rgba(0,0,0,0.06); }
+  .qr-box { text-align: center; padding: 8px 0; }
+  .qr-box img { max-width: 200px; width: 100%; border-radius: 8px; }
+  .qr-box .qr-name { font-family: 'Prompt', sans-serif; font-size: 16px; font-weight: 600; color: var(--navy); margin-top: 10px; }
+  .qr-box .qr-ref { font-size: 12px; color: var(--text-soft); margin-top: 4px; }
+
+  label { display: block; font-size: 12px; font-weight: 600; color: var(--text-soft); margin: 14px 0 6px; text-transform: uppercase; letter-spacing: 0.5px; }
+  input, textarea { width: 100%; padding: 12px 14px; border: 1.5px solid var(--gray-mid); border-radius: 10px; font-size: 15px; font-family: 'Sarabun', sans-serif; color: var(--text); background: var(--gray-light); transition: border-color 0.2s; }
+  input:focus, textarea:focus { outline: none; border-color: var(--blue); background: white; }
+
+  .file-box { border: 2px dashed var(--gray-mid); border-radius: 10px; padding: 24px 16px; text-align: center; cursor: pointer; background: var(--gray-light); transition: all 0.2s; }
+  .file-box:hover { border-color: var(--blue-light); }
+  .file-box.has-file { border-style: solid; border-color: #22c55e; background: #f0fdf4; }
+  .file-box .file-icon { font-size: 28px; margin-bottom: 6px; }
+  .file-box span { font-size: 14px; color: var(--text-soft); display: block; }
+  #slipPreview { max-width: 100%; max-height: 180px; margin-top: 10px; border-radius: 8px; }
+
+  .submit-btn { width: 100%; padding: 15px; background: linear-gradient(135deg, var(--navy), var(--blue)); color: white; border: none; border-radius: 12px; font-family: 'Prompt', sans-serif; font-size: 16px; font-weight: 600; cursor: pointer; margin-top: 8px; transition: opacity 0.2s, transform 0.1s; }
+  .submit-btn:hover { opacity: 0.92; transform: translateY(-1px); }
+  .submit-btn:disabled { opacity: 0.5; cursor: wait; transform: none; }
+
+  .toast { position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%); padding: 14px 28px; border-radius: 30px; color: white; font-weight: 600; font-size: 14px; box-shadow: 0 6px 24px rgba(0,0,0,0.2); display: none; z-index: 999; white-space: nowrap; }
+  .toast.success { background: #16a34a; display: block; }
+  .toast.error { background: #dc2626; display: block; }
+
+  .coming-soon { text-align: center; padding: 60px 20px; }
+  .coming-soon .icon { font-size: 64px; margin-bottom: 16px; }
+  .coming-soon h2 { font-family: 'Prompt', sans-serif; font-size: 20px; color: var(--navy); margin-bottom: 8px; }
+  .coming-soon p { color: var(--text-soft); font-size: 14px; line-height: 1.8; }
+
+  footer { text-align: center; padding: 24px 16px; color: var(--text-soft); font-size: 12px; }
 </style>
 </head>
 <body>
-<div class="container">
-  <h1>💳 เติมเงินบัตรนักเรียน</h1>
-  <p class="subtitle">สแกน QR โอนเงิน แล้วกรอกข้อมูลด้านล่าง</p>
 
-  <div class="qr-box">
-    <img src="qr-promptpay.jpg" alt="QR PromptPay" style="max-width:220px;width:100%">
-    <p>📱 พร้อมเพย์ PromptPay<br>ในนาม: <strong>โรงเรียนนิมิตศึกษา เพื่อกิจกรรม</strong><br>
-    <small style="color:#aaa">เลขอ้างอิง: KPS004KB000002297827</small></p>
+<header>
+  <div class="header-inner">
+    <div class="school-logo"><img src="./index_files/logo.jpg" alt="โลโก้โรงเรียนนิมิตศึกษา"></div>
+    <div class="school-info">
+      <h1>โรงเรียนนิมิตศึกษา</h1>
+      <p>ระบบบริการออนไลน์ของโรงเรียน</p>
+    </div>
+  </div>
+</header>
+
+<nav>
+  <div class="nav-inner">
+    <button class="nav-btn active" onclick="showPage(&#39;home&#39;,this)">🏠 หน้าหลัก</button>
+    <button class="nav-btn" onclick="showPage(&#39;topup&#39;,this)">💳 เติมเงินบัตร</button>
+    <button class="nav-btn" onclick="showPage(&#39;schedule&#39;,this)">📅 ตารางสอน</button>
+    <button class="nav-btn" onclick="showPage(&#39;news&#39;,this)">📢 ข่าวสาร</button>
+    <button class="nav-btn" onclick="showPage(&#39;contact&#39;,this)">📞 ติดต่อ</button>
+  </div>
+</nav>
+
+<main>
+
+  <!-- HOME -->
+  <div class="page active" id="page-home">
+    <div class="welcome-banner">
+      <h2>ยินดีต้อนรับ</h2>
+      <p>ระบบบริการออนไลน์สำหรับนักเรียนและผู้ปกครอง</p>
+    </div>
+    <div class="menu-grid">
+      <div class="menu-card highlight" onclick="showPage(&#39;topup&#39;, document.querySelectorAll(&#39;.nav-btn&#39;)[1])">
+        <div class="icon">💳</div>
+        <h3>เติมเงินบัตรนักเรียน</h3>
+        <p>โอนเงินและแจ้งผ่านระบบ</p>
+      </div>
+      <div class="menu-card soon">
+        <div class="icon">📅</div>
+        <h3>ตารางสอน</h3>
+        <p>ดูตารางเรียนแต่ละชั้น</p>
+        <span class="badge-soon">เร็วๆ นี้</span>
+      </div>
+      <div class="menu-card soon">
+        <div class="icon">📢</div>
+        <h3>ข่าวสาร</h3>
+        <p>ประกาศและกิจกรรม</p>
+        <span class="badge-soon">เร็วๆ นี้</span>
+      </div>
+      <div class="menu-card soon">
+        <div class="icon">📞</div>
+        <h3>ติดต่อโรงเรียน</h3>
+        <p>เบอร์โทรและที่อยู่</p>
+        <span class="badge-soon">เร็วๆ นี้</span>
+      </div>
+    </div>
   </div>
 
-  <form id="topupForm">
-    <label>ชื่อ-นามสกุลนักเรียน *</label>
-    <input type="text" id="studentName" required="" placeholder="เช่น ด.ช.สมชาย ใจดี">
-
-    <label>ชั้น *</label>
-    <input type="text" id="studentClass" required="" placeholder="เช่น ป.3/2">
-
-    <label>จำนวนเงิน (บาท) *</label>
-    <input type="number" id="amount" required="" min="1" step="1" placeholder="500" inputmode="numeric">
-
-    <label>หมายเหตุ (ถ้ามี)</label>
-    <textarea id="note" rows="2" placeholder="เช่น เติมสำหรับ 2 สัปดาห์"></textarea>
-
-    <label>แนบสลิปการโอน *</label>
-    <div class="file-box" id="fileBox" onclick="document.getElementById(&#39;slip&#39;).click()">
-      <span id="fileText">📷 แตะเพื่อเลือกหรือถ่ายรูปสลิป</span>
-      <img id="slipPreview" style="display:none">
+  <!-- TOPUP -->
+  <div class="page" id="page-topup">
+    <div class="page-title">
+      <button class="back-btn" onclick="showPage(&#39;home&#39;, document.querySelectorAll(&#39;.nav-btn&#39;)[0])">←</button>
+      <h2>💳 เติมเงินบัตรนักเรียน</h2>
     </div>
-    <input type="file" id="slip" accept="image/*"  required="" style="display:none">
+    <div class="card">
+      <div class="qr-box">
+        <img src="./index_files/qr-promptpay.jpg" alt="QR PromptPay">
+        <div class="qr-name">โรงเรียนนิมิตศึกษา เพื่อกิจกรรม</div>
+        <div class="qr-ref">เลขอ้างอิง: KPS004KB000002297827</div>
+      </div>
+    </div>
+    <div class="card">
+      <form id="topupForm">
+        <label>ชื่อ-นามสกุลนักเรียน *</label>
+        <input type="text" id="studentName" required="" placeholder="เช่น ด.ช.สมชาย ใจดี">
 
-    <button type="submit" id="submitBtn">📤 ส่งแจ้งเติมเงิน</button>
-  </form>
-</div>
+        <label>ชั้น *</label>
+        <input type="text" id="studentClass" required="" placeholder="เช่น ป.3/2">
 
+        <label>จำนวนเงิน (บาท) *</label>
+        <input type="number" id="amount" required="" min="1" step="1" placeholder="500" inputmode="numeric">
+
+        <label>หมายเหตุ (ถ้ามี)</label>
+        <textarea id="note" rows="2" placeholder="เช่น เติมสำหรับ 2 สัปดาห์"></textarea>
+
+        <label>แนบสลิปการโอน *</label>
+        <div class="file-box" id="fileBox" onclick="document.getElementById(&#39;slip&#39;).click()">
+          <div class="file-icon">📷</div>
+          <span id="fileText">แตะเพื่อเลือกหรือถ่ายรูปสลิป</span>
+          <img id="slipPreview" style="display:none">
+        </div>
+        <input type="file" id="slip" accept="image/*" required="" style="display:none">
+
+        <br>
+        <button type="submit" class="submit-btn" id="submitBtn">📤 ส่งแจ้งเติมเงิน</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- SCHEDULE -->
+  <div class="page" id="page-schedule">
+    <div class="coming-soon">
+      <div class="icon">📅</div>
+      <h2>ตารางสอน</h2>
+      <p>ระบบนี้กำลังอยู่ระหว่างการพัฒนา<br>จะเปิดให้ใช้งานเร็วๆ นี้</p>
+    </div>
+  </div>
+
+  <!-- NEWS -->
+  <div class="page" id="page-news">
+    <div class="coming-soon">
+      <div class="icon">📢</div>
+      <h2>ข่าวสารและประกาศ</h2>
+      <p>ระบบนี้กำลังอยู่ระหว่างการพัฒนา<br>จะเปิดให้ใช้งานเร็วๆ นี้</p>
+    </div>
+  </div>
+
+  <!-- CONTACT -->
+  <div class="page" id="page-contact">
+    <div class="coming-soon">
+      <div class="icon">📞</div>
+      <h2>ติดต่อโรงเรียน</h2>
+      <p>ระบบนี้กำลังอยู่ระหว่างการพัฒนา<br>จะเปิดให้ใช้งานเร็วๆ นี้</p>
+    </div>
+  </div>
+
+</main>
+
+<footer>© 2026 โรงเรียนนิมิตศึกษา — ระบบบริการออนไลน์</footer>
 <div class="toast" id="toast"></div>
 
 <script>
   const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbx0g19PEgB5VJNBwSRekHLNL_SXvzY94ABh_bBbFNr_J8cPRNFw2LtnDNPnq_aRxr4x/exec';
 
-  const form      = document.getElementById('topupForm');
+  function showPage(pageId, btn) {
+    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+    document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+    document.getElementById('page-' + pageId).classList.add('active');
+    if (btn) btn.classList.add('active');
+    window.scrollTo(0, 0);
+  }
+
   const slipInput = document.getElementById('slip');
   const fileBox   = document.getElementById('fileBox');
   const fileText  = document.getElementById('fileText');
   const preview   = document.getElementById('slipPreview');
-  const btn       = document.getElementById('submitBtn');
-  const toast     = document.getElementById('toast');
-
   let slipBase64 = null, slipMimeType = null, slipExt = null;
 
   slipInput.addEventListener('change', e => {
@@ -145,18 +258,18 @@
   });
 
   function showToast(msg, type) {
+    const toast = document.getElementById('toast');
     toast.textContent = msg;
     toast.className = 'toast ' + type;
     setTimeout(() => { toast.className = 'toast'; }, 4000);
   }
 
-  form.addEventListener('submit', async e => {
+  document.getElementById('topupForm').addEventListener('submit', async e => {
     e.preventDefault();
     if (!slipBase64) { showToast('กรุณาแนบสลิป', 'error'); return; }
-
+    const btn = document.getElementById('submitBtn');
     btn.disabled = true;
     btn.textContent = '⏳ กำลังส่ง...';
-
     const payload = {
       studentName:   document.getElementById('studentName').value.trim(),
       studentClass:  document.getElementById('studentClass').value.trim(),
@@ -165,18 +278,14 @@
       note:          document.getElementById('note').value.trim(),
       slipBase64, slipMimeType, slipExt
     };
-
     try {
-      const res = await fetch(SCRIPT_URL, {
-        method: 'POST',
-        body: JSON.stringify(payload)
-      });
+      const res = await fetch(SCRIPT_URL, { method: 'POST', body: JSON.stringify(payload) });
       const result = await res.json();
       if (result.ok) {
         showToast('✅ ส่งเรียบร้อย รอครูตรวจสอบ', 'success');
-        form.reset();
+        document.getElementById('topupForm').reset();
         preview.style.display = 'none';
-        fileText.textContent = '📷 แตะเพื่อเลือกหรือถ่ายรูปสลิป';
+        fileText.textContent = 'แตะเพื่อเลือกหรือถ่ายรูปสลิป';
         fileBox.classList.remove('has-file');
         slipBase64 = null;
       } else {

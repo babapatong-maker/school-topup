@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<!-- saved from url=(0043)file:///C:/Users/tt/Downloads/index_45.html -->
-<html lang="th"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-
+<html lang="th">
+<head>
+<meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>โรงเรียนนิมิตศึกษา</title>
-<link href="./index_files/css2" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;600;700&family=Prompt:wght@400;600;700&display=swap" rel="stylesheet">
 <style>
   :root {
     --navy: #1a2744;
@@ -108,11 +108,12 @@
 
 <nav>
   <div class="nav-inner">
-    <button class="nav-btn active" onclick="showPage(&#39;home&#39;,this)">🏠 หน้าหลัก</button>
-    <button class="nav-btn" onclick="showPage(&#39;topup&#39;,this)">💳 เติมเงินบัตร</button>
-    <button class="nav-btn" onclick="showPage(&#39;schedule&#39;,this)">📅 ตารางสอน</button>
-    <button class="nav-btn" onclick="showPage(&#39;news&#39;,this)">📢 ข่าวสาร</button>
-    <button class="nav-btn" onclick="showPage(&#39;contact&#39;,this)">📞 ติดต่อ</button>
+    <button class="nav-btn active" onclick="showPage('home',this)">🏠 หน้าหลัก</button>
+    <button class="nav-btn" onclick="showPage('topup',this)">💳 เติมเงินบัตร</button>
+    <button class="nav-btn" onclick="showPage('balance',this)">💰 เช็คยอดเงิน</button>
+    <button class="nav-btn" onclick="showPage('schedule',this)">📅 ตารางสอน</button>
+    <button class="nav-btn" onclick="showPage('news',this)">📢 ข่าวสาร</button>
+    <button class="nav-btn" onclick="showPage('contact',this)">📞 ติดต่อ</button>
   </div>
 </nav>
 
@@ -125,16 +126,15 @@
       <p>ระบบบริการออนไลน์สำหรับนักเรียนและผู้ปกครอง</p>
     </div>
     <div class="menu-grid">
-      <div class="menu-card highlight" onclick="showPage(&#39;topup&#39;, document.querySelectorAll(&#39;.nav-btn&#39;)[1])">
+      <div class="menu-card highlight" onclick="showPage('topup', document.querySelectorAll('.nav-btn')[1])">
         <div class="icon">💳</div>
         <h3>เติมเงินบัตรนักเรียน</h3>
         <p>โอนเงินและแจ้งผ่านระบบ</p>
       </div>
-      <div class="menu-card soon">
-        <div class="icon">📅</div>
-        <h3>ตารางสอน</h3>
-        <p>ดูตารางเรียนแต่ละชั้น</p>
-        <span class="badge-soon">เร็วๆ นี้</span>
+      <div class="menu-card" onclick="showPage('balance', document.querySelectorAll('.nav-btn')[2])">
+        <div class="icon">💰</div>
+        <h3>เช็คยอดเงิน</h3>
+        <p>ดูยอดคงเหลือในบัตร</p>
       </div>
       <div class="menu-card soon">
         <div class="icon">📢</div>
@@ -154,7 +154,7 @@
   <!-- TOPUP -->
   <div class="page" id="page-topup">
     <div class="page-title">
-      <button class="back-btn" onclick="showPage(&#39;home&#39;, document.querySelectorAll(&#39;.nav-btn&#39;)[0])">←</button>
+      <button class="back-btn" onclick="showPage('home', document.querySelectorAll('.nav-btn')[0])">←</button>
       <h2>💳 เติมเงินบัตรนักเรียน</h2>
     </div>
     <div class="card">
@@ -167,28 +167,54 @@
     <div class="card">
       <form id="topupForm">
         <label>ชื่อ-นามสกุลนักเรียน *</label>
-        <input type="text" id="studentName" required="" placeholder="เช่น ด.ช.สมชาย ใจดี">
+        <input type="text" id="studentName" required placeholder="เช่น ด.ช.สมชาย ใจดี">
 
         <label>ชั้น *</label>
-        <input type="text" id="studentClass" required="" placeholder="เช่น ป.3/2">
+        <input type="text" id="studentClass" required placeholder="เช่น ป.3/2">
 
         <label>จำนวนเงิน (บาท) *</label>
-        <input type="number" id="amount" required="" min="1" step="1" placeholder="500" inputmode="numeric">
+        <input type="number" id="amount" required min="1" step="1" placeholder="500" inputmode="numeric">
 
         <label>หมายเหตุ (ถ้ามี)</label>
         <textarea id="note" rows="2" placeholder="เช่น เติมสำหรับ 2 สัปดาห์"></textarea>
 
         <label>แนบสลิปการโอน *</label>
-        <div class="file-box" id="fileBox" onclick="document.getElementById(&#39;slip&#39;).click()">
+        <div class="file-box" id="fileBox" onclick="document.getElementById('slip').click()">
           <div class="file-icon">📷</div>
           <span id="fileText">แตะเพื่อเลือกหรือถ่ายรูปสลิป</span>
           <img id="slipPreview" style="display:none">
         </div>
-        <input type="file" id="slip" accept="image/*" required="" style="display:none">
+        <input type="file" id="slip" accept="image/*" required style="display:none">
 
         <br>
         <button type="submit" class="submit-btn" id="submitBtn">📤 ส่งแจ้งเติมเงิน</button>
       </form>
+    </div>
+  </div>
+
+  <!-- BALANCE -->
+  <div class="page" id="page-balance">
+    <div class="page-title">
+      <button class="back-btn" onclick="showPage('home', document.querySelectorAll('.nav-btn')[0])">←</button>
+      <h2>💰 เช็คยอดเงินในบัตร</h2>
+    </div>
+    <div class="card">
+      <label>ชื่อ-นามสกุลนักเรียน</label>
+      <input type="text" id="searchName" placeholder="เช่น สมชาย ใจดี" oninput="searchStudent()">
+      <div id="searchResults" style="margin-top:12px"></div>
+    </div>
+    <div class="card" id="balanceResult" style="display:none">
+      <div style="text-align:center;padding:8px 0">
+        <div style="font-size:13px;color:var(--text-soft);margin-bottom:4px">ยอดเงินคงเหลือ</div>
+        <div id="balanceAmount" style="font-family:'Prompt',sans-serif;font-size:42px;font-weight:700;color:var(--navy)"></div>
+        <div style="font-size:14px;color:var(--text-soft);margin-top:4px">บาท</div>
+        <hr style="margin:16px 0;border:none;border-top:1.5px solid var(--gray-mid)">
+        <div id="studentInfo" style="font-size:14px;color:var(--text-soft);line-height:2"></div>
+      </div>
+    </div>
+    <div class="card" id="historyCard" style="display:none">
+      <div style="font-family:'Prompt',sans-serif;font-size:15px;font-weight:600;color:var(--navy);margin-bottom:12px">ประวัติล่าสุด 5 รายการ</div>
+      <div id="historyList"></div>
     </div>
   </div>
 
@@ -225,7 +251,100 @@
 <div class="toast" id="toast"></div>
 
 <script>
+  const SUPABASE_URL = 'https://siaxxsbszyzboaorntuv.supabase.co';
+  const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNpYXh4c2Jzenl6Ym9hb3JudHV2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzc4ODY2NDUsImV4cCI6MjA5MzQ2MjY0NX0.q7HeLis9HNLnrTKLzR9Uo0H--7ycLLoHsSHi5agkBC8';
   const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbx0g19PEgB5VJNBwSRekHLNL_SXvzY94ABh_bBbFNr_J8cPRNFw2LtnDNPnq_aRxr4x/exec';
+
+  let searchTimeout = null;
+
+  async function searchStudent() {
+    const name = document.getElementById('searchName').value.trim();
+    const results = document.getElementById('searchResults');
+    const balanceResult = document.getElementById('balanceResult');
+    const historyCard = document.getElementById('historyCard');
+
+    balanceResult.style.display = 'none';
+    historyCard.style.display = 'none';
+
+    if (name.length < 2) { results.innerHTML = ''; return; }
+
+    clearTimeout(searchTimeout);
+    searchTimeout = setTimeout(async () => {
+      results.innerHTML = '<div style="color:var(--text-soft);font-size:14px;padding:8px 0">🔍 กำลังค้นหา...</div>';
+      try {
+        const res = await fetch(
+          `${SUPABASE_URL}/rest/v1/students?name=ilike.*${encodeURIComponent(name)}*&active=eq.true&select=id,name,grade,balance`,
+          { headers: { 'apikey': SUPABASE_KEY, 'Authorization': `Bearer ${SUPABASE_KEY}` } }
+        );
+        const data = await res.json();
+        if (!data.length) {
+          results.innerHTML = '<div style="color:#dc2626;font-size:14px;padding:8px 0">❌ ไม่พบนักเรียน</div>';
+          return;
+        }
+        results.innerHTML = data.map(s => `
+          <div onclick="showBalance('${s.id}')" style="padding:12px;border:1.5px solid var(--gray-mid);border-radius:10px;margin-bottom:8px;cursor:pointer;background:var(--gray-light);transition:all 0.2s" onmouseover="this.style.borderColor='var(--blue)'" onmouseout="this.style.borderColor='var(--gray-mid)'">
+            <div style="font-weight:600;font-size:15px">${s.name}</div>
+            <div style="font-size:13px;color:var(--text-soft)">ชั้น ${s.grade}</div>
+          </div>
+        `).join('');
+      } catch(err) {
+        results.innerHTML = '<div style="color:#dc2626;font-size:14px">เกิดข้อผิดพลาด</div>';
+      }
+    }, 400);
+  }
+
+  async function showBalance(studentId) {
+    document.getElementById('searchResults').innerHTML = '';
+    document.getElementById('balanceResult').style.display = 'block';
+    document.getElementById('balanceAmount').textContent = '...';
+    document.getElementById('studentInfo').textContent = '';
+
+    try {
+      // ดึงข้อมูลนักเรียน
+      const sRes = await fetch(
+        `${SUPABASE_URL}/rest/v1/students?id=eq.${studentId}&select=id,name,grade,balance,phone`,
+        { headers: { 'apikey': SUPABASE_KEY, 'Authorization': `Bearer ${SUPABASE_KEY}` } }
+      );
+      const [s] = await sRes.json();
+
+      document.getElementById('balanceAmount').textContent = Number(s.balance).toLocaleString();
+      document.getElementById('studentInfo').innerHTML = `
+        <div>👦 ${s.name}</div>
+        <div>🎓 ชั้น ${s.grade}</div>
+        <div>🆔 ${s.id}</div>
+      `;
+
+      // ดึงประวัติ 5 รายการล่าสุด
+      const tRes = await fetch(
+        `${SUPABASE_URL}/rest/v1/transactions?student_id=eq.${studentId}&voided=eq.false&order=created_at.desc&limit=5&select=type,amount,balance_after,note,created_at`,
+        { headers: { 'apikey': SUPABASE_KEY, 'Authorization': `Bearer ${SUPABASE_KEY}` } }
+      );
+      const txns = await tRes.json();
+
+      if (txns.length) {
+        document.getElementById('historyCard').style.display = 'block';
+        document.getElementById('historyList').innerHTML = txns.map(t => {
+          const isTopup = t.type === 'topup';
+          const date = new Date(t.created_at).toLocaleString('th-TH', {day:'2-digit',month:'2-digit',year:'2-digit',hour:'2-digit',minute:'2-digit'});
+          return `
+            <div style="display:flex;justify-content:space-between;align-items:center;padding:10px 0;border-bottom:1px solid var(--gray-mid)">
+              <div>
+                <div style="font-size:14px;font-weight:600;color:${isTopup?'#16a34a':'#dc2626'}">${isTopup?'⬆️ เติมเงิน':'⬇️ ซื้อสินค้า'}</div>
+                <div style="font-size:12px;color:var(--text-soft)">${date}${t.note?' · '+t.note:''}</div>
+              </div>
+              <div style="text-align:right">
+                <div style="font-family:'Prompt',sans-serif;font-weight:700;color:${isTopup?'#16a34a':'#dc2626'}">${isTopup?'+':'-'}${Number(t.amount).toLocaleString()}</div>
+                <div style="font-size:12px;color:var(--text-soft)">คงเหลือ ${Number(t.balance_after).toLocaleString()}</div>
+              </div>
+            </div>
+          `;
+        }).join('');
+      }
+
+    } catch(err) {
+      document.getElementById('balanceAmount').textContent = 'Error';
+    }
+  }
 
   function showPage(pageId, btn) {
     document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
@@ -299,6 +418,5 @@
     }
   });
 </script>
-
-
-</body></html>
+</body>
+</html>
